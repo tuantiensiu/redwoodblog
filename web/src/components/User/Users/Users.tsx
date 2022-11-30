@@ -1,11 +1,11 @@
+import type { DeleteUserMutationVariables, FindUsers } from 'types/graphql'
+
 import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/User/UsersCell'
 import { timeTag, truncate } from 'src/lib/formatters'
-
-import type { DeleteUserMutationVariables, FindUsers } from 'types/graphql'
 
 const DELETE_USER_MUTATION = gql`
   mutation DeleteUserMutation($id: Int!) {
@@ -34,6 +34,11 @@ const UsersList = ({ users }: FindUsers) => {
     if (confirm('Are you sure you want to delete user ' + id + '?')) {
       deleteUser({ variables: { id } })
     }
+  }
+
+  const onSelectClick = (region: FindUsers) => {
+    UsersList(region)
+    console.log(region)
   }
 
   return (
@@ -71,6 +76,15 @@ const UsersList = ({ users }: FindUsers) => {
                   >
                     Edit
                   </Link>
+
+                  <button
+                    type="button"
+                    className="rw-button rw-button-red"
+                    onClick={() => onSelectClick(user.region)}
+                  >
+                    select 2
+                  </button>
+
                   <button
                     type="button"
                     title={'Delete user ' + user.id}

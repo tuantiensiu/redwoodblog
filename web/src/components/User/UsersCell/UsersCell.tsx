@@ -1,3 +1,4 @@
+import { Select } from '@mantine/core'
 import type { FindUsers } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
@@ -22,12 +23,19 @@ export const Empty = () => {
   return (
     <div className="rw-text-center">
       {'No users yet. '}
-      <Link
-        to={routes.newUser()}
-        className="rw-link"
-      >
+      <Link to={routes.newUser()} className="rw-link">
         {'Create one?'}
       </Link>
+      {/* <Select
+        label="Your favorite framework/library"
+        placeholder="Pick one"
+        data={[
+          { value: '1', label: '1' },
+          { value: '2', label: '2' },
+          { value: 'svelte', label: 'Svelte' },
+          { value: 'vue', label: 'Vue' },
+        ]}
+      /> */}
     </div>
   )
 }

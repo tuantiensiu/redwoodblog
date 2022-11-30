@@ -1,11 +1,10 @@
+import type { DeleteUserMutationVariables, FindUserById } from 'types/graphql'
 
 import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import { timeTag,  } from 'src/lib/formatters'
-
-import type { DeleteUserMutationVariables, FindUserById } from 'types/graphql'
+import { timeTag } from 'src/lib/formatters'
 
 const DELETE_USER_MUTATION = gql`
   mutation DeleteUserMutation($id: Int!) {
@@ -36,6 +35,10 @@ const User = ({ user }: Props) => {
     }
   }
 
+  const onSelectClick = (region) => {
+    console.log(region)
+  }
+
   return (
     <>
       <div className="rw-segment">
@@ -49,13 +52,16 @@ const User = ({ user }: Props) => {
             <tr>
               <th>Id</th>
               <td>{user.id}</td>
-            </tr><tr>
+            </tr>
+            <tr>
               <th>Name</th>
               <td>{user.name}</td>
-            </tr><tr>
+            </tr>
+            <tr>
               <th>Region</th>
               <td>{user.region}</td>
-            </tr><tr>
+            </tr>
+            <tr>
               <th>Created at</th>
               <td>{timeTag(user.createdAt)}</td>
             </tr>
@@ -69,6 +75,13 @@ const User = ({ user }: Props) => {
         >
           Edit
         </Link>
+        <button
+          type="button"
+          className="rw-button rw-button-red"
+          onClick={() => onSelectClick(user.region)}
+        >
+          select
+        </button>
         <button
           type="button"
           className="rw-button rw-button-red"

@@ -1,16 +1,8 @@
-// import type {
-//   FindEmployeeQuery,
-//   FindEmployeeQueryVariables,
-// } from 'types/graphql'
+import { useState } from 'react'
 
-// import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+import { Select } from '@mantine/core'
 
 export const QUERY = gql`
-  # query FindEmployeeQuery($id: Int!) {
-  #   employee: employee(id: $id) {
-  #     id
-  #   }
-  # }
   query EmployeeQuery {
     employee: users {
       name
@@ -28,11 +20,35 @@ export const Failure = ({ error }) => {
   ;<div style={{ color: 'red' }}>Error: {error?.message}</div>
 }
 export const Success = ({ employee }) => {
+  const [value, setValue] = useState<string | null>(null)
+
   return (
-    <ul>
-      {employee.map((item) => {
-        return <li key={item.id}>{JSON.stringify(item)}</li>
-      })}
-    </ul>
+    <>
+      <Select
+        label="Your favorite framework/library"
+        placeholder="Pick one"
+        data={[
+          { value: '1', label: 'Region 1' },
+          { value: '2', label: 'Region 2' },
+        ]}
+      />
+
+      <ul>
+        {employee.map((item) => {
+          return <li key={item.id}>{JSON.stringify(item)}</li>
+        })}
+      </ul>
+    </>
   )
+}
+
+export const beforeQuery = (props) => {
+  console.log(`props:`, JSON.stringify(props, null, 2))
+  return { variables: { region: 1 }, fetchPolicy: 'network-only' }
+}
+
+export const afterQuery = (data) => {
+  // I need my Props here !!
+
+  return data
 }
