@@ -14,6 +14,9 @@ const UserLayout = ({ children }: UserLayoutProps) => {
             <li>
               <Link to={routes.home()}>Home</Link>
             </li>
+            <li>
+              <Link to={routes.contact()}>Contact</Link>
+            </li>
           </ul>
         </nav>
       </header>

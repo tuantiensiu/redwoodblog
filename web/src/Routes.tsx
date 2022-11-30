@@ -11,10 +11,12 @@ import { Set, Router, Route } from '@redwoodjs/router'
 
 import ScaffoldLayout from 'src/layouts/ScaffoldLayout'
 
+import UserLayout from './layouts/UserLayout/UserLayout'
+
 const Routes = () => {
   return (
     <Router>
-      <Route path="/article/{id:Int}" page={ArticlePage} name="article" />
+      <Route path="/contact" page={ContactPage} name="contact" />
       <Set wrap={ScaffoldLayout} title="Users" titleTo="users" buttonLabel="New User" buttonTo="newUser">
         <Route path="/users/new" page={UserNewUserPage} name="newUser" />
         <Route path="/users/{id:Int}/edit" page={UserEditUserPage} name="editUser" />
@@ -28,7 +30,11 @@ const Routes = () => {
         <Route path="/posts" page={PostPostsPage} name="posts" />
       </Set>
       <Route path="/about" page={AboutPage} name="about" />
-      <Route path="/" page={HomePage} name="home" />
+      <Set wrap={UserLayout}>
+        <Route path="/article/{id:Int}" page={ArticlePage} name="article" />
+        <Route path="/contact" page={ContactPage} name="contact" />
+        <Route path="/" page={HomePage} name="home" />
+      </Set>
       <Route notfound page={NotFoundPage} />
     </Router>
   )
